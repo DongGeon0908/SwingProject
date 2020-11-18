@@ -1,0 +1,151 @@
+DROP DATABASE 	pos_db;
+CREATE DATABASE pos_db;
+show databases;
+
+show tables;
+
+drop table POS;
+drop table RED;
+drop table WHITE;
+drop table SPA;
+drop table GRATIN;
+drop table PASTA;
+drop table PIZZA;
+
+use pos_db;
+
+
+CREATE TABLE POS (
+id1 int not null auto_increment,
+할인횟수 int ,
+할인금액 int ,
+최종금액 int ,
+할인전금액 int,
+PRIMARY KEY (id1) 
+);
+
+CREATE TABLE RED (
+rid int not null auto_increment,
+말벡 INT ,
+앙케 INT,
+라크라사드 INT,
+몬테스 INT,
+엘레베 INT,
+페레제 INT,
+primary key (rid),
+FOREIgN KEY (rid) REFERENCES POS(id1)
+);
+
+CREATE TABLE WHITE (
+wid int not null auto_increment,
+리즐링 INT,
+앙시앙 INT,
+지아콘디 INT,
+소비뇽 INT,
+비안코 INT,
+샤르도네 INT,
+primary key (wid),
+FOREIgN KEY (wid) REFERENCES POS(id1)
+);
+
+CREATE TABLE SPA (
+spaid int not null auto_increment,
+아리온 INT,
+로제타 INT,
+비안코 INT,
+아스티 INT,
+카바 INT,
+브룻 INT,
+primary key (spaid),
+FOREIgN KEY (spaid) REFERENCES POS(id1)
+);
+
+CREATE TABLE GRATIN (
+gid int not null auto_increment,
+토마토그라탕 INT,
+크림그라탕 INT,
+로제그라탕 INT,
+닭고기그라탕 INT,
+소고기그라탕 INT,
+돼지고기그라탕 INT,
+primary key (gid),
+FOREIgN KEY (gid) REFERENCES POS(id1)
+);
+
+CREATE TABLE PASTA (
+paid int not null auto_increment,
+토마토파스타 INT,
+크림파스타 INT,
+로제파스타 INT,
+알리오올리오 INT,
+연어파스타 INT,
+냉파스타 INT,
+primary key (paid),
+FOREIgN KEY (paid) REFERENCES POS(id1)
+);
+
+CREATE TABLE PIZZA (
+piid int not null auto_increment,
+토마토피자 INT,
+비스마르크 INT,
+풍기피자 INT,
+크림피자 INT,
+포테이토피자 INT,
+스파이스초리죠 INT,
+primary key (piid),
+FOREIgN KEY (piid) REFERENCES POS(id1)
+);
+
+CREATE TABLE BEFORESUM (
+beid int not null auto_increment,
+직원할인 INT,
+지인할인 INT,
+만원 INT,
+이만원 INT,
+이만오천원 INT,
+오만원 INT,
+primary key (beid),
+FOREIgN KEY (beid) REFERENCES POS(id1)
+);
+
+
+
+
+SELECT *
+FROM POS, RED,WHITE,SPA,GRATIN,PASTA,PIZZA,BEFORESUM
+where POS.id1 = RED.rid and POS.id1 = WHITE.wid and POS.id1 = SPA.spaid 
+	and POS.id1 = GRATIN.gid and POS.id1 = PASTA.paid and POS.id1 = PIZZA.piid and POS.id1 = BEFORESUM.beid ;	
+
+
+select *
+from RED;
+
+SELECT *
+FROM POS, RED,WHITE,SPA,GRATIN,PASTA,PIZZA;
+
+select COUNT(말벡) AS 말벡, COUNT(앙케) AS 앙케, COUNT(라크라사드) AS 라크라사드, COUNT(몬테스) AS 몬테스, COUNT(엘레베) AS 엘레베, COUNT(페레제) AS 페레제
+from RED;
+
+select sum(말벡),sum(앙케),sum(라크라사드),sum(몬테스),sum(엘레베),sum(페레제)
+from RED
+where Max;
+
+select sum(할인횟수), sum(할인금액), sum(할인전금액), sum(최종금액)
+from POS;
+
+delete from BEFORESUM where beid=1; 
+delete from PIZZA where piid =1;
+delete from PASTA where paid =1;
+delete from GRATIN where gid =1;
+delete from SPA where spaid =1;
+delete from WHITE where wid =1;
+delete from RED where rid =1;
+delete from POS where id1 =1;
+
+BEFORESUM, PIZZA, PASTA, GRATIN, SPA, WHITE, RED, POS
+delete from BEFORESUM, PIZZA, PASTA, GRATIN, SPA, WHITE, RED, POS USING POS inner join RED inner join WHITE inner join SPA inner join GRATIN inner join PASTA inner join PIZZA  inner join BEFORESUM where POS.id1 = RED.rid and POS.id1 = WHITE.wid and POS.id1  = SPA.spaid and POS.id1 = GRATIN.gid and POS.id1 = PASTA.paid and POS.id1 = PIZZA.piid and POS.id1 = BEFORESUM.beid and POS.id1 = 1;	
+
+delete POS, RED,WHITE,SPA,GRATIN,PASTA,PIZZA,BEFORESUM from POS JOIN RED ON (POS.id1 = RED.rid) JOIN WHITE ON(RED.rid = WHITE.wid) JOIN SPA ON(WHITE.wid = SPA.spaid) JOIN GRATIN ON(SPA.spaid = GRATIN.gid) JOIN PASTA ON(GRATIN.gid = PASTA.paid) JOIN PIZZA ON(PASTA.paid = PIZZA.piid) JOIN BEFORESUM ON(PIZZA.piid = BEFORESUM.beid) WHERE POS.id1=1;
+
+delete from  POS, RED,WHITE,SPA,GRATIN,PASTA,PIZZA,BEFORESUM USING POS.id1 = RED.rid and POS.id1 = WHITE.wid and POS.id1 = SPA.spaid and POS.id1 = GRATIN.gid and POS.id1 = PASTA.paid and POS.id1 = PIZZA.piidand and POS.id1 = BEFORESUM.beid WHERE POS.id1 =1;
+
