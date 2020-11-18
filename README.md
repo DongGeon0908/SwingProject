@@ -50,6 +50,9 @@ visual-studio
 ![판매량 파스타](https://github.com/DongGeon0908/SwingProject/blob/master/pic/16.png)
 ![판매량 피자](https://github.com/DongGeon0908/SwingProject/blob/master/pic/17.png)
 ![판매량](https://github.com/DongGeon0908/SwingProject/blob/master/pic/18.png)
+<hr />
+
+- version 1.5
 
 
 
